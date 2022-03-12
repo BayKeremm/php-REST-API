@@ -15,41 +15,6 @@ class Database
         }
     }
 
-    public function insert($query = "",$params = [])
-    {
-    	try{
-    		$stmt = $this->executeInsert($query,$params);
-		    $stmt->close();
-            return true;
-
-
-	    }catch(Exception $e){
-		    throw New Exception( $e->getMessage());	
-	    }
-	    return false;
-    }
-
-    public function executeInsert($query= "",$params=[])
-    {
-	    try{
-            	$stmt = $this->connection->prepare( $query );
-
-		        if($stmt == false){
-                    	throw New Exception("Unable to do prepared statement: " . $query);
-			
-		        }
-		        $stmt->bind_param("sss",$params[0],$params[1],$params[2]);
-            	$stmt->execute();
-            	return $stmt;
-		    
-	    
-	    }catch(Exception $e){
-            	throw New Exception( $e->getMessage() );
-	    }		
-    }
-	
-
-
     public function select($query = "",$params = []){
         try{
             $stmt = $this->executeStatement($query,$params);
